@@ -47,12 +47,12 @@
                     <div class="mb-2">
                         <img src="{{ asset($pahlawan->gambar) }}" alt="{{ $pahlawan->nama_pahlawan }}" 
                              class="img-thumbnail" style="width: 150px;">
-                        <div class="form-check mt-2">
+                        {{-- <div class="form-check mt-2">
                             <input class="form-check-input" type="checkbox" id="hapus_gambar" name="hapus_gambar">
                             <label class="form-check-label" for="hapus_gambar">
                                 Hapus gambar saat ini
                             </label>
-                        </div>
+                        </div> --}}
                     </div>
                 @endif
                 <input type="file" class="form-control @error('gambar') is-invalid @enderror" 
