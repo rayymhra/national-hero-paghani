@@ -10,25 +10,122 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Animate CSS for smooth animations -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #1a5fb4;
-            --secondary-color: #e6b325;
-            --dark-color: #0d3b66;
-            --light-color: #f8f9fa;
-            --text-color: #333333;
-            --accent-color: #c53030;
+            --color-primary-blue: #0D47A1;     /* Biru Tua */
+            --color-secondary-blue: #1976D2;   /* Biru Sedang */
+            --color-accent-blue: #42A5F5;      /* Biru Muda */
+            --color-primary-yellow: #FFC107;   /* Kuning Emas */
+            --color-secondary-yellow: #FFD54F; /* Kuning Muda */
+            --color-white: #FFFFFF;
+            --color-light-bg: #F5F9FF;
+            --color-card-bg: #FFFFFF;
+            --color-text-dark: #1A237E;
+            --color-text-light: #546E7A;
+            --color-border: #E3F2FD;
+            --color-success: #2E7D32;
+            --color-warning: #FF8F00;
+            --color-danger: #C62828;
+            --shadow-soft: 0 8px 25px rgba(13, 71, 161, 0.08);
+            --shadow-medium: 0 15px 35px rgba(13, 71, 161, 0.12);
+            --shadow-heavy: 0 20px 50px rgba(13, 71, 161, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            color: var(--color-text-dark);
             line-height: 1.6;
+            background-color: var(--color-light-bg);
+            background-image: 
+                linear-gradient(135deg, rgba(13, 71, 161, 0.03) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(255, 193, 7, 0.03) 0%, transparent 50%);
         }
         
-        /* Hero Section */
+        /* Garis merah-putih dekoratif */
+        .red-white-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(90deg, #C62828, #C62828 20px, #FFFFFF 20px, #FFFFFF 40px);
+            z-index: 1000;
+        }
+        
+        /* Navbar Styling - Diperbarui */
+        .navbar-custom {
+            background: linear-gradient(90deg, var(--color-primary-blue), var(--color-secondary-blue));
+            box-shadow: var(--shadow-medium);
+            padding: 0.8rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid var(--color-primary-yellow);
+        }
+        
+        .navbar-custom.scrolled {
+            padding: 0.6rem 0;
+        }
+        
+        .nav-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--color-white) !important;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-brand i {
+            color: var(--color-primary-yellow);
+            font-size: 2.2rem;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+        }
+        
+        .nav-link {
+            color: var(--color-white) !important;
+            font-weight: 500;
+            padding: 0.6rem 1.4rem !important;
+            border-radius: 30px;
+            margin: 0 0.2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-primary-yellow) !important;
+            background-color: rgba(255, 193, 7, 0.15);
+        }
+        
+        .btn-nav {
+            background: linear-gradient(90deg, var(--color-primary-yellow), var(--color-secondary-yellow));
+            color: var(--color-text-dark) !important;
+            border-radius: 30px;
+            padding: 0.5rem 1.5rem;
+            margin-left: 10px;
+            font-weight: 600;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(90deg, var(--color-secondary-yellow), #FFECB3);
+        }
+        
+        /* Hero Section - Diperbarui */
         .hero-section {
-            background: linear-gradient(rgba(13, 59, 102, 0.85), rgba(13, 59, 102, 0.9)), 
+            background: linear-gradient(rgba(13, 71, 161, 0.85), rgba(25, 118, 210, 0.9)), 
                         url('https://images.unsplash.com/photo-1551524165-6b6e5a6166f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
@@ -37,44 +134,79 @@
             min-height: 80vh;
             display: flex;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 193, 7, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
         }
         
         .hero-title {
-            font-size: 3.5rem;
-            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
             margin-bottom: 1.5rem;
             line-height: 1.2;
+            color: var(--color-white);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-title span {
+            color: var(--color-primary-yellow);
+            position: relative;
+        }
+        
+        .hero-title span::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--color-primary-yellow);
+            opacity: 0.7;
         }
         
         .hero-subtitle {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
             opacity: 0.9;
-            max-width: 800px;
+            max-width: 600px;
+            line-height: 1.7;
         }
         
         .btn-hero {
-            background-color: var(--secondary-color);
-            color: var(--dark-color);
-            padding: 12px 32px;
+            background: linear-gradient(90deg, var(--color-primary-yellow), var(--color-secondary-yellow));
+            color: var(--color-text-dark);
+            padding: 14px 36px;
             font-weight: 600;
             border-radius: 30px;
             border: none;
             transition: all 0.3s ease;
             font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
         }
         
         .btn-hero:hover {
-            background-color: #ffcc33;
+            background: linear-gradient(90deg, var(--color-secondary-yellow), #FFECB3);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
         
         /* Section Styling */
         .section-title {
+            font-family: 'Montserrat', sans-serif;
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--dark-color);
+            color: var(--color-primary-blue);
             margin-bottom: 1.5rem;
             position: relative;
             padding-bottom: 15px;
@@ -87,7 +219,8 @@
             left: 0;
             width: 80px;
             height: 4px;
-            background-color: var(--secondary-color);
+            background: linear-gradient(90deg, var(--color-primary-yellow), var(--color-secondary-yellow));
+            border-radius: 2px;
         }
         
         .section-title-center::after {
@@ -104,33 +237,39 @@
             border: none;
             border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             height: 100%;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow-soft);
+            background-color: var(--color-card-bg);
+            border-top: 4px solid var(--color-primary-blue);
         }
         
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-heavy);
+            border-top: 4px solid var(--color-primary-yellow);
         }
         
         .feature-icon {
             font-size: 2.5rem;
-            color: var(--primary-color);
+            color: var(--color-primary-blue);
             margin-bottom: 1rem;
         }
         
         /* Stats Section */
         .stats-section {
-            background-color: var(--dark-color);
+            background: linear-gradient(90deg, var(--color-primary-blue), var(--color-secondary-blue));
             color: white;
             padding: 60px 0;
+            border-top: 3px solid var(--color-primary-yellow);
+            border-bottom: 3px solid var(--color-primary-yellow);
         }
         
         .stat-number {
+            font-family: 'Montserrat', sans-serif;
             font-size: 3rem;
             font-weight: 700;
-            color: var(--secondary-color);
+            color: var(--color-primary-yellow);
             margin-bottom: 0.5rem;
         }
         
@@ -139,115 +278,104 @@
             opacity: 0.9;
         }
         
-        /* Navigation */
-        .navbar-custom {
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 15px 0;
+        /* Database Heroes Section - DIKONSISTENKAN */
+        .hero-card {
             transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+            box-shadow: var(--shadow-soft);
+            background-color: var(--color-card-bg);
+            height: 100%;
+            border-top: 4px solid var(--color-primary-blue);
         }
         
-        .navbar-custom.scrolled {
-            padding: 10px 0;
-            background-color: white;
+        .hero-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+            border-top: 4px solid var(--color-primary-yellow);
         }
         
-        .nav-brand {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--dark-color) !important;
+        .hero-card .card-img-top {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
         }
         
-        .nav-link {
-            font-weight: 500;
-            margin: 0 10px;
-            color: var(--text-color) !important;
-            transition: color 0.3s ease;
+        .hero-card .no-image {
+            height: 200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-light-bg), var(--color-border));
         }
         
-        .nav-link:hover {
-            color: var(--primary-color) !important;
+        .text-truncate-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
         }
         
-        .btn-nav {
-            background-color: var(--primary-color);
-            color: white !important;
-            border-radius: 30px;
-            padding: 8px 20px;
-            margin-left: 10px;
-        }
-        
-        .btn-nav:hover {
-            background-color: #0d4a8a;
-        }
-        
-        /* Footer */
-        .footer {
-            background-color: var(--dark-color);
+        /* Database Stats Card */
+        .database-stats-card {
+            background: linear-gradient(135deg, var(--color-primary-blue), var(--color-secondary-blue));
             color: white;
-            padding: 60px 0 30px;
+            border-radius: 15px;
+            border: 3px solid var(--color-primary-yellow);
+            box-shadow: var(--shadow-heavy);
         }
         
-        .footer-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--secondary-color);
-        }
-        
-        .footer-link {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-link:hover {
-            color: var(--secondary-color);
-        }
-        
-        .copyright {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
-            margin-top: 40px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
-        /* New Sections Styles */
+        /* New Sections Styles - Diperbarui */
         
         /* Fun Fact Section */
         .fun-fact-section {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 20px;
+            background: linear-gradient(135deg, var(--color-light-bg), var(--color-border));
+            border-radius: 15px;
             padding: 40px;
             margin: 30px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-soft);
+            border: 2px solid var(--color-primary-yellow);
         }
         
         .fun-fact-title {
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.8rem;
-            color: var(--primary-color);
+            color: var(--color-primary-blue);
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
+        .fun-fact-title i {
+            color: var(--color-primary-yellow);
+        }
+        
         .fun-fact-content {
             font-size: 1.3rem;
             font-weight: 600;
-            color: var(--dark-color);
+            color: var(--color-text-dark);
             min-height: 80px;
             display: flex;
             align-items: center;
+            line-height: 1.5;
         }
         
         /* Quote Section */
         .quote-section {
-            background-color: var(--dark-color);
+            background: linear-gradient(90deg, var(--color-primary-blue), var(--color-secondary-blue));
             color: white;
             padding: 60px 0;
             position: relative;
             overflow: hidden;
+            border-top: 3px solid var(--color-primary-yellow);
+            border-bottom: 3px solid var(--color-primary-yellow);
         }
         
         .quote-section::before {
@@ -272,28 +400,30 @@
         .quote-author {
             font-size: 1.2rem;
             font-weight: 600;
-            color: var(--secondary-color);
+            color: var(--color-primary-yellow);
         }
         
         /* Values Section */
         .values-card {
-            background: white;
+            background: var(--color-card-bg);
             border-radius: 15px;
             padding: 30px;
             height: 100%;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-left: 5px solid var(--secondary-color);
+            box-shadow: var(--shadow-soft);
+            border-left: 5px solid var(--color-primary-yellow);
             transition: all 0.3s ease;
+            border-top: 3px solid transparent;
         }
         
         .values-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-medium);
+            border-top: 3px solid var(--color-primary-blue);
         }
         
         .values-icon {
             font-size: 2.5rem;
-            color: var(--primary-color);
+            color: var(--color-primary-blue);
             margin-bottom: 20px;
         }
         
@@ -301,13 +431,14 @@
         .map-section {
             position: relative;
             overflow: hidden;
+            border-radius: 15px;
+            box-shadow: var(--shadow-soft);
         }
         
         .map-image {
             width: 100%;
             height: 300px;
             object-fit: cover;
-            border-radius: 15px;
             filter: brightness(0.9);
         }
         
@@ -317,13 +448,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(13, 59, 102, 0.7);
+            background: linear-gradient(rgba(13, 71, 161, 0.8), rgba(25, 118, 210, 0.9));
             color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 40px;
-            border-radius: 15px;
+        }
+        
+        .map-overlay h3 {
+            color: var(--color-primary-yellow);
         }
         
         /* Timeline Section */
@@ -337,7 +471,7 @@
             content: '';
             position: absolute;
             width: 6px;
-            background-color: var(--primary-color);
+            background: linear-gradient(to bottom, var(--color-primary-blue), var(--color-secondary-blue));
             top: 0;
             bottom: 0;
             left: 50%;
@@ -362,15 +496,16 @@
         
         .timeline-content {
             padding: 20px;
-            background-color: white;
+            background-color: var(--color-card-bg);
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-soft);
             position: relative;
+            border-top: 3px solid var(--color-primary-blue);
         }
         
         .timeline-year {
             font-weight: bold;
-            color: var(--primary-color);
+            color: var(--color-primary-blue);
             font-size: 1.2rem;
             margin-bottom: 10px;
         }
@@ -382,7 +517,7 @@
             height: 20px;
             right: -13px;
             background-color: white;
-            border: 4px solid var(--primary-color);
+            border: 4px solid var(--color-primary-blue);
             top: 15px;
             border-radius: 50%;
             z-index: 1;
@@ -395,7 +530,7 @@
             height: 20px;
             left: -13px;
             background-color: white;
-            border: 4px solid var(--primary-color);
+            border: 4px solid var(--color-primary-blue);
             top: 15px;
             border-radius: 50%;
             z-index: 1;
@@ -403,24 +538,30 @@
         
         /* Modern Heroes Section */
         .modern-heroes-section {
-            background-color: #f8f9fa;
-            border-radius: 20px;
+            background-color: var(--color-light-bg);
+            border-radius: 15px;
             padding: 40px;
+            border: 2px solid var(--color-border);
         }
         
         .modern-hero-card {
             text-align: center;
             padding: 20px;
             transition: all 0.3s ease;
+            background: var(--color-card-bg);
+            border-radius: 10px;
+            height: 100%;
+            box-shadow: var(--shadow-soft);
         }
         
         .modern-hero-card:hover {
             transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
         }
         
         .modern-hero-icon {
             font-size: 2.5rem;
-            color: var(--primary-color);
+            color: var(--color-primary-blue);
             margin-bottom: 15px;
             height: 70px;
             display: flex;
@@ -428,14 +569,126 @@
             justify-content: center;
         }
         
+        /* Features Section */
+        .features-section {
+            background: linear-gradient(135deg, var(--color-light-bg) 0%, #E3F2FD 100%);
+        }
+        
+        /* Footer - Diperbarui */
+        .footer {
+            background: linear-gradient(90deg, var(--color-primary-blue), var(--color-secondary-blue));
+            color: white;
+            padding: 60px 0 30px;
+            border-top: 3px solid var(--color-primary-yellow);
+        }
+        
+        .footer-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-primary-yellow);
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--color-primary-yellow);
+            transform: translateX(3px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Button Styling Konsisten */
+        .btn-primary {
+            background: linear-gradient(90deg, var(--color-primary-blue), var(--color-secondary-blue));
+            color: var(--color-white);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(90deg, var(--color-secondary-blue), var(--color-accent-blue));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(25, 118, 210, 0.4);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(90deg, var(--color-primary-yellow), var(--color-secondary-yellow));
+            color: var(--color-text-dark);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-warning:hover {
+            background: linear-gradient(90deg, var(--color-secondary-yellow), #FFECB3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+        }
+        
+        /* Pagination */
+        .pagination .page-item.active .page-link {
+            background: linear-gradient(90deg, var(--color-primary-blue), var(--color-secondary-blue));
+            border-color: var(--color-primary-blue);
+            color: white;
+        }
+        
+        .pagination .page-link {
+            color: var(--color-primary-blue);
+            border-radius: 8px;
+            margin: 0 3px;
+            border: 1px solid var(--color-border);
+        }
+        
+        .pagination .page-link:hover {
+            background-color: rgba(13, 71, 161, 0.1);
+            color: var(--color-primary-blue);
+            border-color: var(--color-primary-blue);
+        }
+        
+        /* Form controls */
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 1px solid var(--color-border);
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--color-primary-blue);
+            box-shadow: 0 0 0 0.25rem rgba(13, 71, 161, 0.25);
+        }
+        
+        .input-group-text {
+            background: linear-gradient(90deg, var(--color-primary-blue), var(--color-secondary-blue));
+            color: white;
+            border: none;
+            border-radius: 10px 0 0 10px;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
             
             .hero-subtitle {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
             
             .section-title {
@@ -468,83 +721,38 @@
             .fun-fact-content {
                 font-size: 1.1rem;
             }
-        }
-        
-        @media (max-width: 576px) {
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+            
             .fun-fact-section, .modern-heroes-section {
                 padding: 25px;
             }
-            
+        }
+        
+        @media (max-width: 576px) {
             .hero-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .btn-hero, .btn-primary, .btn-warning {
+                padding: 10px 20px;
+                font-size: 1rem;
             }
         }
-
-
-        /* Database Heroes Section Styles */
-.hero-card {
-    transition: all 0.3s ease;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.hero-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
-}
-
-.text-truncate-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.empty-state {
-    padding: 40px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 15px;
-    border: 2px dashed #dee2e6;
-}
-
-.hero-item.hidden {
-    display: none !important;
-}
-
-.pagination .page-item.active .page-link {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.pagination .page-link {
-    color: var(--primary-color);
-    border-radius: 8px;
-    margin: 0 3px;
-}
-
-.pagination .page-link:hover {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-/* Loading animation */
-.loading {
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-.spinner-border.text-primary {
-    width: 3rem;
-    height: 3rem;
-}
     </style>
 </head>
 <body>
+    <!-- Garis merah putih -->
+    <div class="red-white-line"></div>
+    
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
         <div class="container">
-            <a class="navbar-brand nav-brand" href="/">Pahlawan Indonesia</a>
+            <a class="navbar-brand nav-brand" href="/">
+                <i class="fas fa-shield-alt"></i> 
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -557,17 +765,14 @@
                         <a class="nav-link" href="#about">Tentang</a>
                     </li>
                     <li class="nav-item">
-    <a class="nav-link" href="#database-heroes">Daftar Pahlawan</a>
-</li>
+                        <a class="nav-link" href="#database-heroes">Daftar Pahlawan</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#new-features">Wawasan Kepahlawanan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#features">Fitur</a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{ route('pahlawans.index') }}">Database Pahlawan</a>
-                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link btn btn-nav" href="{{ route('pahlawans.index') }}">
                             <i class="fas fa-database me-1"></i> Kelola Data
@@ -583,7 +788,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-7">
-                    <h1 class="hero-title animate__animated animate__fadeInDown">Mengenal Para Pejuang Kemerdekaan Indonesia</h1>
+                    <h1 class="hero-title animate__animated animate__fadeInDown">Mengenal Para <span>Pejuang Kemerdekaan</span> Indonesia</h1>
                     <p class="hero-subtitle animate__animated animate__fadeIn animate__delay-1s">
                         Mereka adalah pahlawan yang mengorbankan jiwa dan raga untuk kemerdekaan bangsa. 
                         Mari kita kenang jasa-jasa mereka dan pelajari sejarah perjuangan Indonesia.
@@ -598,7 +803,14 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <img src="https://geotimes.id/wp-content/uploads/2017/08/w644-2.jpg" alt="Pahlawan Indonesia" class="w-100 rounded animate__animated animate__fadeInRight">
+                    <div class="position-relative">
+                        <img src="https://geotimes.id/wp-content/uploads/2017/08/w644-2.jpg" alt="Pahlawan Indonesia" 
+                             class="w-100 rounded animate__animated animate__fadeInRight"
+                             style="border: 3px solid var(--color-primary-yellow); box-shadow: var(--shadow-heavy);">
+                        <div class="position-absolute top-0 start-0 m-3">
+                            <span class="badge bg-warning text-dark fs-6">Sumber: Geotimes</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -609,18 +821,18 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h2 class="section-title">Menghormati Warisan Sejarah Bangsa</h2>
-                    <p class="lead mb-4">
+                    <h2 class="section-title">Menghormati <span>Warisan Sejarah</span> Bangsa</h2>
+                    <p class="lead mb-4" style="color: var(--color-primary-blue); font-weight: 500;">
                         Setiap pahlawan Indonesia memiliki cerita perjuangan yang unik, dari berbagai daerah 
                         dan latar belakang, tetapi dengan satu tujuan: kemerdekaan dan kedaulatan bangsa.
                     </p>
-                    <p>
+                    <p style="color: var(--color-text-light);">
                         Melalui platform ini, kami berkomitmen untuk melestarikan memori dan jasa para pahlawan 
                         dengan cara yang modern dan mudah diakses. Database yang kami bangun memungkinkan 
                         generasi muda untuk mempelajari sejarah dengan lebih interaktif.
                     </p>
                     <div class="mt-4">
-                        <a href="{{ route('pahlawans.index') }}" class="btn btn-primary btn-lg" style="border-radius: 30px; padding: 12px 30px;">
+                        <a href="{{ route('pahlawans.index') }}" class="btn btn-primary btn-lg">
                             <i class="fas fa-users me-2"></i> Temukan Pahlawan
                         </a>
                     </div>
@@ -633,7 +845,7 @@
                                     <i class="fas fa-landmark"></i>
                                 </div>
                                 <h4 class="mb-3">Warisan Sejarah</h4>
-                                <p>Mendokumentasikan perjalanan panjang para pahlawan dari berbagai periode sejarah Indonesia.</p>
+                                <p class="text-muted">Mendokumentasikan perjalanan panjang para pahlawan dari berbagai periode sejarah Indonesia.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -642,7 +854,7 @@
                                     <i class="fas fa-book"></i>
                                 </div>
                                 <h4 class="mb-3">Edukasi Digital</h4>
-                                <p>Menyajikan informasi sejarah dalam format digital yang mudah diakses oleh semua kalangan.</p>
+                                <p class="text-muted">Menyajikan informasi sejarah dalam format digital yang mudah diakses oleh semua kalangan.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -651,7 +863,7 @@
                                     <i class="fas fa-database"></i>
                                 </div>
                                 <h4 class="mb-3">Database Terpusat</h4>
-                                <p>Kumpulan data terstruktur tentang pahlawan nasional dan daerah dari seluruh Indonesia.</p>
+                                <p class="text-muted">Kumpulan data terstruktur tentang pahlawan nasional dan daerah dari seluruh Indonesia.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -660,7 +872,7 @@
                                     <i class="fas fa-shield-alt"></i>
                                 </div>
                                 <h4 class="mb-3">Pelestarian Nilai</h4>
-                                <p>Menjaga nilai-nilai kepahlawanan agar tetap relevan bagi generasi masa kini dan mendatang.</p>
+                                <p class="text-muted">Menjaga nilai-nilai kepahlawanan agar tetap relevan bagi generasi masa kini dan mendatang.</p>
                             </div>
                         </div>
                     </div>
@@ -669,9 +881,8 @@
         </div>
     </section>
 
-
     <!-- Stats Section -->
-    <section class="stats-section mb-5">
+    <section class="stats-section">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-3 col-6 mb-4">
@@ -694,30 +905,16 @@
         </div>
     </section>
 
-        <!-- Database Heroes Section -->
+    <!-- Database Heroes Section -->
     <section class="section-padding" id="database-heroes">
         <div class="container">
             <h2 class="section-title text-center section-title-center mb-5">Daftar Pahlawan dalam Database</h2>
-            
-            <div class="row mb-4">
-                <div class="col-12">
-                    {{-- <div class="alert alert-info">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-info-circle fa-2x me-3"></i>
-                            <div>
-                                <h5 class="mb-1">Database Aktif</h5>
-                                <p class="mb-0">Berikut adalah pahlawan-pahlawan yang telah terdaftar dalam sistem kami. Data ini dapat diperbarui melalui menu <a href="{{ route('pahlawans.index') }}" class="alert-link">Kelola Data</a>.</p>
-                            </div>
-                        </div>
-                    </div> --}}
-                </div>
-            </div>
             
             <!-- Filter and Search Section -->
             <div class="row mb-4">
                 <div class="col-md-8">
                     <div class="input-group">
-                        <span class="input-group-text bg-primary text-white">
+                        <span class="input-group-text">
                             <i class="fas fa-search"></i>
                         </span>
                         <input type="text" id="heroSearch" class="form-control" placeholder="Cari pahlawan berdasarkan nama atau daerah...">
@@ -746,14 +943,16 @@
                 @endphp
                 
                 @forelse($pahlawans as $pahlawan)
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 hero-item" data-name="{{ strtolower($pahlawan->nama_pahlawan) }}" data-region="{{ strtolower($pahlawan->daerah) }}">
-                    <div class="card h-100 border-0 shadow-sm hero-card">
-                        <div class="card-img-top position-relative" style="height: 200px; overflow: hidden;">
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 hero-item" 
+                     data-name="{{ strtolower($pahlawan->nama_pahlawan) }}" 
+                     data-region="{{ strtolower($pahlawan->daerah) }}">
+                    <div class="card h-100 border-0 hero-card">
+                        <div class="card-img-top position-relative">
                             @if($pahlawan->gambar)
                                 <img src="{{ asset($pahlawan->gambar) }}" alt="{{ $pahlawan->nama_pahlawan }}" 
-                                     class="w-100 h-100" style="object-fit: cover;">
+                                     class="w-100 card-img-top" style="height: 200px; object-fit: cover;">
                             @else
-                                <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light">
+                                <div class="no-image d-flex align-items-center justify-content-center">
                                     <i class="fas fa-user-circle fa-5x text-secondary"></i>
                                 </div>
                             @endif
@@ -762,12 +961,12 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title mb-2">{{ $pahlawan->nama_pahlawan }}</h5>
+                            <h5 class="card-title mb-2" style="color: var(--color-primary-blue);">{{ $pahlawan->nama_pahlawan }}</h5>
                             <div class="d-flex align-items-center mb-3">
                                 <i class="fas fa-map-marker-alt text-primary me-2"></i>
                                 <span class="text-muted small">{{ $pahlawan->daerah }}</span>
                             </div>
-                            <p class="card-text small text-truncate-3" style="max-height: 60px; overflow: hidden;">
+                            <p class="card-text small text-truncate-3">
                                 {{ $pahlawan->jasa }}
                             </p>
                         </div>
@@ -776,16 +975,16 @@
                                 <a href="{{ route('pahlawans.show', $pahlawan) }}" class="btn btn-sm btn-outline-primary">
                                     <i class="fas fa-eye me-1"></i> Detail
                                 </a>
-                                <a href="{{ route('pahlawans.edit', $pahlawan) }}" class="btn btn-sm btn-outline-warning">
+                                {{-- <a href="{{ route('pahlawans.edit', $pahlawan) }}" class="btn btn-sm btn-outline-warning">
                                     <i class="fas fa-edit me-1"></i> Edit
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </div>
                 </div>
                 @empty
                 <div class="col-12 text-center py-5">
-                    <div class="empty-state">
+                    <div class="empty-state" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; border: 2px dashed #dee2e6; padding: 40px;">
                         <i class="fas fa-database fa-4x text-muted mb-3"></i>
                         <h4 class="text-muted">Database Masih Kosong</h4>
                         <p class="text-muted mb-4">Belum ada data pahlawan yang terdaftar.</p>
@@ -837,10 +1036,10 @@
             <!-- Database Stats -->
             <div class="row mt-5">
                 <div class="col-12">
-                    <div class="card border-0 shadow-sm">
+                    <div class="card border-0 database-stats-card">
                         <div class="card-body">
-                            <h5 class="card-title mb-3">
-                                <i class="fas fa-chart-bar text-primary me-2"></i>
+                            <h5 class="card-title mb-3 text-white">
+                                <i class="fas fa-chart-bar me-2"></i>
                                 Statistik Database
                             </h5>
                             <div class="row">
@@ -852,41 +1051,41 @@
                                 
                                 <div class="col-md-4 mb-3">
                                     <div class="d-flex align-items-center">
-                                        <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
-                                            <i class="fas fa-users text-primary fa-lg"></i>
+                                        <div class="bg-white bg-opacity-20 p-3 rounded me-3">
+                                            <i class="fas fa-users text-white fa-lg"></i>
                                         </div>
                                         <div>
-                                            <h6 class="mb-0">Total Pahlawan</h6>
-                                            <h4 class="mb-0 text-primary">{{ $totalPahlawans }}</h4>
+                                            <h6 class="mb-0 text-white">Total Pahlawan</h6>
+                                            <h4 class="mb-0 text-warning">{{ $totalPahlawans }}</h4>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-4 mb-3">
                                     <div class="d-flex align-items-center">
-                                        <div class="bg-success bg-opacity-10 p-3 rounded me-3">
-                                            <i class="fas fa-map-marked-alt text-success fa-lg"></i>
+                                        <div class="bg-white bg-opacity-20 p-3 rounded me-3">
+                                            <i class="fas fa-map-marked-alt text-white fa-lg"></i>
                                         </div>
                                         <div>
-                                            <h6 class="mb-0">Daerah Asal</h6>
-                                            <h4 class="mb-0 text-success">{{ $uniqueRegions }}</h4>
+                                            <h6 class="mb-0 text-white">Daerah Asal</h6>
+                                            <h4 class="mb-0 text-warning">{{ $uniqueRegions }}</h4>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <div class="col-md-4 mb-3">
                                     <div class="d-flex align-items-center">
-                                        <div class="bg-warning bg-opacity-10 p-3 rounded me-3">
-                                            <i class="fas fa-history text-warning fa-lg"></i>
+                                        <div class="bg-white bg-opacity-20 p-3 rounded me-3">
+                                            <i class="fas fa-history text-white fa-lg"></i>
                                         </div>
                                         <div>
-                                            <h6 class="mb-0">Terakhir Ditambahkan</h6>
+                                            <h6 class="mb-0 text-white">Terakhir Ditambahkan</h6>
                                             @if($latestAdded)
-                                            <div class="text-truncate" style="max-width: 150px;">
+                                            <div class="text-truncate text-white" style="max-width: 150px;">
                                                 {{ $latestAdded->nama_pahlawan }}
                                             </div>
                                             @else
-                                            <div>-</div>
+                                            <div class="text-white">-</div>
                                             @endif
                                         </div>
                                     </div>
@@ -898,8 +1097,6 @@
             </div>
         </div>
     </section>
-
-
 
     <!-- New Features Section -->
     <section class="section-padding" id="new-features">
@@ -935,8 +1132,8 @@
                         <div class="values-icon">
                             <i class="fas fa-handshake"></i>
                         </div>
-                        <h4>Gotong Royong</h4>
-                        <p>Nilai kebersamaan dan saling membantu yang dicontohkan para pahlawan masih relevan dalam membangun komunitas yang solid di era modern.</p>
+                        <h4 style="color: var(--color-primary-blue);">Gotong Royong</h4>
+                        <p class="text-muted">Nilai kebersamaan dan saling membantu yang dicontohkan para pahlawan masih relevan dalam membangun komunitas yang solid di era modern.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
@@ -944,8 +1141,8 @@
                         <div class="values-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h4>Integritas</h4>
-                        <p>Kejujuran dan konsistensi dalam memegang prinsip merupakan warisan berharga dari para pahlawan untuk menghadapi tantangan zaman now.</p>
+                        <h4 style="color: var(--color-primary-blue);">Integritas</h4>
+                        <p class="text-muted">Kejujuran dan konsistensi dalam memegang prinsip merupakan warisan berharga dari para pahlawan untuk menghadapi tantangan zaman now.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
@@ -953,8 +1150,8 @@
                         <div class="values-icon">
                             <i class="fas fa-brain"></i>
                         </div>
-                        <h4>Kecerdasan Strategis</h4>
-                        <p>Kemampuan berpikir kritis dan membuat strategi yang ditunjukkan para pahlawan sangat dibutuhkan dalam memecahkan masalah kompleks masa kini.</p>
+                        <h4 style="color: var(--color-primary-blue);">Kecerdasan Strategis</h4>
+                        <p class="text-muted">Kemampuan berpikir kritis dan membuat strategi yang ditunjukkan para pahlawan sangat dibutuhkan dalam memecahkan masalah kompleks masa kini.</p>
                     </div>
                 </div>
             </div>
@@ -973,14 +1170,12 @@
                 </div>
             </div>
             
-
-            
             <!-- Pahlawan Hari Ini -->
-            <div class="row mb-3 mt-3">
+            <div class="row mb-5">
                 <div class="col-12">
-                    <h3 class="section-title mb-4 mt-5">Pahlawan Hari Ini</h3>
+                    <h3 class="section-title mb-4">Pahlawan Hari Ini</h3>
                     <div class="modern-heroes-section animate__animated animate__fadeIn">
-                        <p class="lead text-center mb-4">
+                        <p class="lead text-center mb-4" style="color: var(--color-primary-blue);">
                             <strong>Konsep:</strong> Guru, tenaga medis, relawan, dan masyarakat yang berkontribusi 
                             bagi bangsa adalah pahlawan di era modern.
                         </p>
@@ -990,8 +1185,8 @@
                                     <div class="modern-hero-icon">
                                         <i class="fas fa-user-md"></i>
                                     </div>
-                                    <h5>Tenaga Medis</h5>
-                                    <p>Para dokter, perawat, dan tenaga kesehatan yang berjuang di garis depan.</p>
+                                    <h5 style="color: var(--color-primary-blue);">Tenaga Medis</h5>
+                                    <p class="text-muted">Para dokter, perawat, dan tenaga kesehatan yang berjuang di garis depan.</p>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 mb-4">
@@ -999,8 +1194,8 @@
                                     <div class="modern-hero-icon">
                                         <i class="fas fa-chalkboard-teacher"></i>
                                     </div>
-                                    <h5>Guru</h5>
-                                    <p>Pendidik yang membentuk generasi penerus bangsa dengan dedikasi tinggi.</p>
+                                    <h5 style="color: var(--color-primary-blue);">Guru</h5>
+                                    <p class="text-muted">Pendidik yang membentuk generasi penerus bangsa dengan dedikasi tinggi.</p>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 mb-4">
@@ -1008,8 +1203,8 @@
                                     <div class="modern-hero-icon">
                                         <i class="fas fa-hands-helping"></i>
                                     </div>
-                                    <h5>Relawan</h5>
-                                    <p>Individu yang mengabdi tanpa pamrih untuk membantu sesama masyarakat.</p>
+                                    <h5 style="color: var(--color-primary-blue);">Relawan</h5>
+                                    <p class="text-muted">Individu yang mengabdi tanpa pamrih untuk membantu sesama masyarakat.</p>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 mb-4">
@@ -1017,8 +1212,8 @@
                                     <div class="modern-hero-icon">
                                         <i class="fas fa-users"></i>
                                     </div>
-                                    <h5>Masyarakat</h5>
-                                    <p>Warga yang aktif berkontribusi dalam pembangunan lingkungan dan sosial.</p>
+                                    <h5 style="color: var(--color-primary-blue);">Masyarakat</h5>
+                                    <p class="text-muted">Warga yang aktif berkontribusi dalam pembangunan lingkungan dan sosial.</p>
                                 </div>
                             </div>
                         </div>
@@ -1026,7 +1221,7 @@
                 </div>
             </div>
 
-                        <!-- Pahlawan dari Sabang sampai Merauke -->
+            <!-- Pahlawan dari Sabang sampai Merauke -->
             <div class="row mb-5">
                 <div class="col-12">
                     <div class="map-section animate__animated animate__fadeIn">
@@ -1044,36 +1239,36 @@
             </div>
             
             <!-- Jejak Waktu Perjuangan (Timeline) -->
-            <div class="row ">
-                <div class="col-12 mt-3">
+            <div class="row">
+                <div class="col-12">
                     <h3 class="section-title mb-4">Jejak Waktu Perjuangan</h3>
                     <div class="timeline-container">
                         <div class="timeline-item animate__animated animate__fadeInLeft">
                             <div class="timeline-content">
                                 <div class="timeline-year">1908</div>
-                                <h5>Kebangkitan Nasional</h5>
-                                <p>Didirikannya Budi Utomo sebagai organisasi modern pertama yang memperjuangkan kemerdekaan Indonesia.</p>
+                                <h5 style="color: var(--color-primary-blue);">Kebangkitan Nasional</h5>
+                                <p class="text-muted">Didirikannya Budi Utomo sebagai organisasi modern pertama yang memperjuangkan kemerdekaan Indonesia.</p>
                             </div>
                         </div>
                         <div class="timeline-item animate__animated animate__fadeInRight">
                             <div class="timeline-content">
                                 <div class="timeline-year">1928</div>
-                                <h5>Sumpah Pemuda</h5>
-                                <p>Kongres Pemuda II menghasilkan Sumpah Pemuda yang menjadi dasar persatuan bangsa.</p>
+                                <h5 style="color: var(--color-primary-blue);">Sumpah Pemuda</h5>
+                                <p class="text-muted">Kongres Pemuda II menghasilkan Sumpah Pemuda yang menjadi dasar persatuan bangsa.</p>
                             </div>
                         </div>
                         <div class="timeline-item animate__animated animate__fadeInLeft">
                             <div class="timeline-content">
                                 <div class="timeline-year">1945</div>
-                                <h5>Proklamasi Kemerdekaan</h5>
-                                <p>Ir. Soekarno dan Drs. Moh. Hatta memproklamasikan kemerdekaan Indonesia pada 17 Agustus 1945.</p>
+                                <h5 style="color: var(--color-primary-blue);">Proklamasi Kemerdekaan</h5>
+                                <p class="text-muted">Ir. Soekarno dan Drs. Moh. Hatta memproklamasikan kemerdekaan Indonesia pada 17 Agustus 1945.</p>
                             </div>
                         </div>
                         <div class="timeline-item animate__animated animate__fadeInRight">
                             <div class="timeline-content">
                                 <div class="timeline-year">1945-1949</div>
-                                <h5>Revolusi Fisik</h5>
-                                <p>Periode perjuangan mempertahankan kemerdekaan dari upaya kolonialisme Belanda.</p>
+                                <h5 style="color: var(--color-primary-blue);">Revolusi Fisik</h5>
+                                <p class="text-muted">Periode perjuangan mempertahankan kemerdekaan dari upaya kolonialisme Belanda.</p>
                             </div>
                         </div>
                     </div>
@@ -1082,16 +1277,12 @@
         </div>
     </section>
 
-    
-
-        
-
     <!-- Features Section -->
-    <section class="section-padding bg-light" id="features">
+    <section class="section-padding features-section" id="features">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="section-title text-center">Mengapa Platform Ini Penting?</h2>
-                <p class="lead max-width-800 mx-auto">
+                <p class="lead max-width-800 mx-auto" style="color: var(--color-text-light); max-width: 800px;">
                     Dalam era digital, penting untuk menyajikan sejarah dengan cara yang menarik 
                     dan mudah diakses oleh generasi muda.
                 </p>
@@ -1101,52 +1292,55 @@
                 <div class="col-lg-4">
                     <div class="p-4 h-100">
                         <div class="d-flex align-items-center mb-3">
-                            <div class="bg-primary rounded-circle p-3 me-3">
+                            <div class="rounded-circle p-3 me-3" style="background: linear-gradient(135deg, var(--color-primary-blue), var(--color-secondary-blue));">
                                 <i class="fas fa-search text-white fs-4"></i>
                             </div>
-                            <h4 class="mb-0">Pencarian Cerdas</h4>
+                            <h4 class="mb-0" style="color: var(--color-primary-blue);">Pencarian Cerdas</h4>
                         </div>
-                        <p>Temukan pahlawan berdasarkan nama, daerah asal, atau periode sejarah dengan mudah menggunakan sistem pencarian kami.</p>
+                        <p class="text-muted">Temukan pahlawan berdasarkan nama, daerah asal, atau periode sejarah dengan mudah menggunakan sistem pencarian kami.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="p-4 h-100">
                         <div class="d-flex align-items-center mb-3">
-                            <div class="bg-primary rounded-circle p-3 me-3">
+                            <div class="rounded-circle p-3 me-3" style="background: linear-gradient(135deg, var(--color-primary-blue), var(--color-secondary-blue));">
                                 <i class="fas fa-edit text-white fs-4"></i>
                             </div>
-                            <h4 class="mb-0">Kontribusi Terbuka</h4>
+                            <h4 class="mb-0" style="color: var(--color-primary-blue);">Kontribusi Terbuka</h4>
                         </div>
-                        <p>Anda dapat berkontribusi dengan menambahkan atau memperbarui informasi pahlawan melalui sistem CRUD yang user-friendly.</p>
+                        <p class="text-muted">Anda dapat berkontribusi dengan menambahkan atau memperbarui informasi pahlawan melalui sistem CRUD yang user-friendly.</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="p-4 h-100">
                         <div class="d-flex align-items-center mb-3">
-                            <div class="bg-primary rounded-circle p-3 me-3">
+                            <div class="rounded-circle p-3 me-3" style="background: linear-gradient(135deg, var(--color-primary-blue), var(--color-secondary-blue));">
                                 <i class="fas fa-mobile-alt text-white fs-4"></i>
                             </div>
-                            <h4 class="mb-0">Akses Mobile</h4>
+                            <h4 class="mb-0" style="color: var(--color-primary-blue);">Akses Mobile</h4>
                         </div>
-                        <p>Platform yang sepenuhnya responsif, dapat diakses dengan optimal dari smartphone, tablet, maupun desktop.</p>
+                        <p class="text-muted">Platform yang sepenuhnya responsif, dapat diakses dengan optimal dari smartphone, tablet, maupun desktop.</p>
                     </div>
                 </div>
             </div>
             
             <div class="text-center mt-5">
-                <a href="{{ route('pahlawans.create') }}" class="btn btn-primary btn-lg" style="border-radius: 30px; padding: 12px 40px;">
+                <a href="{{ route('pahlawans.create') }}" class="btn btn-warning btn-lg">
                     <i class="fas fa-plus-circle me-2"></i> Tambah Pahlawan Baru
                 </a>
             </div>
         </div>
     </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4">
-                    <h3 class="footer-title">Pahlawan Indonesia</h3>
-                    <p>
+                    <h3 class="footer-title">
+                        <i class="fas fa-shield-alt me-2"></i> Pahlawan Indonesia
+                    </h3>
+                    <p class="text-white opacity-75">
                         Platform digital untuk melestarikan sejarah dan mengenang jasa para pahlawan 
                         Indonesia dari berbagai daerah dan periode.
                     </p>
@@ -1204,13 +1398,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="copyright">
-                        <p>&copy; 2026 Pahlawan Indonesia. Semua hak dilindungi. | Dibangun dengan <i class="fas fa-heart text-danger"></i> untuk bangsa</p>
+                        <p>&copy; 2026 Pahlawan Indonesia. Semua hak dilindungi. | Dibangun dengan <i class="fas fa-heart text-warning"></i> untuk bangsa</p>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -1355,108 +1548,106 @@
                 animateCounter();
             }
         });
-    </script>
 
-    <script>
         // Search and Filter Functionality
-const heroSearch = document.getElementById('heroSearch');
-const regionFilter = document.getElementById('regionFilter');
-const clearSearch = document.getElementById('clearSearch');
-const heroItems = document.querySelectorAll('.hero-item');
+        const heroSearch = document.getElementById('heroSearch');
+        const regionFilter = document.getElementById('regionFilter');
+        const clearSearch = document.getElementById('clearSearch');
+        const heroItems = document.querySelectorAll('.hero-item');
 
-function filterHeroes() {
-    const searchTerm = heroSearch.value.toLowerCase();
-    const regionTerm = regionFilter.value.toLowerCase();
-    
-    heroItems.forEach(item => {
-        const heroName = item.getAttribute('data-name');
-        const heroRegion = item.getAttribute('data-region');
-        
-        const nameMatch = heroName.includes(searchTerm);
-        const regionMatch = regionTerm === '' || heroRegion === regionTerm;
-        
-        if (nameMatch && regionMatch) {
-            item.classList.remove('hidden');
-            // Add animation
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-                item.style.transition = 'all 0.3s ease';
-            }, 50);
-        } else {
-            item.classList.add('hidden');
-        }
-    });
-    
-    // Show message if no results
-    const visibleItems = document.querySelectorAll('.hero-item:not(.hidden)');
-    const heroesGrid = document.getElementById('heroesGrid');
-    
-    if (visibleItems.length === 0) {
-        let noResults = document.querySelector('.no-results-message');
-        if (!noResults) {
-            noResults = document.createElement('div');
-            noResults.className = 'col-12 text-center py-5 no-results-message';
-            noResults.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-search fa-4x text-muted mb-3"></i>
-                    <h4 class="text-muted">Tidak Ditemukan</h4>
-                    <p class="text-muted mb-4">Tidak ada pahlawan yang cocok dengan kriteria pencarian.</p>
-                    <button class="btn btn-outline-primary" id="resetFilters">
-                        <i class="fas fa-redo me-2"></i> Reset Filter
-                    </button>
-                </div>
-            `;
-            heroesGrid.appendChild(noResults);
+        function filterHeroes() {
+            const searchTerm = heroSearch.value.toLowerCase();
+            const regionTerm = regionFilter.value.toLowerCase();
             
-            // Add reset functionality
-            document.getElementById('resetFilters').addEventListener('click', function() {
+            heroItems.forEach(item => {
+                const heroName = item.getAttribute('data-name');
+                const heroRegion = item.getAttribute('data-region');
+                
+                const nameMatch = heroName.includes(searchTerm);
+                const regionMatch = regionTerm === '' || heroRegion === regionTerm;
+                
+                if (nameMatch && regionMatch) {
+                    item.classList.remove('hidden');
+                    // Add animation
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                        item.style.transition = 'all 0.3s ease';
+                    }, 50);
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+            
+            // Show message if no results
+            const visibleItems = document.querySelectorAll('.hero-item:not(.hidden)');
+            const heroesGrid = document.getElementById('heroesGrid');
+            
+            if (visibleItems.length === 0) {
+                let noResults = document.querySelector('.no-results-message');
+                if (!noResults) {
+                    noResults = document.createElement('div');
+                    noResults.className = 'col-12 text-center py-5 no-results-message';
+                    noResults.innerHTML = `
+                        <div class="empty-state" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; border: 2px dashed #dee2e6; padding: 40px;">
+                            <i class="fas fa-search fa-4x text-muted mb-3"></i>
+                            <h4 class="text-muted">Tidak Ditemukan</h4>
+                            <p class="text-muted mb-4">Tidak ada pahlawan yang cocok dengan kriteria pencarian.</p>
+                            <button class="btn btn-outline-primary" id="resetFilters">
+                                <i class="fas fa-redo me-2"></i> Reset Filter
+                            </button>
+                        </div>
+                    `;
+                    heroesGrid.appendChild(noResults);
+                    
+                    // Add reset functionality
+                    document.getElementById('resetFilters').addEventListener('click', function() {
+                        heroSearch.value = '';
+                        regionFilter.value = '';
+                        filterHeroes();
+                        noResults.remove();
+                    });
+                }
+            } else {
+                const noResults = document.querySelector('.no-results-message');
+                if (noResults) noResults.remove();
+            }
+        }
+
+        // Event listeners
+        if (heroSearch) {
+            heroSearch.addEventListener('input', filterHeroes);
+        }
+
+        if (regionFilter) {
+            regionFilter.addEventListener('change', filterHeroes);
+        }
+
+        if (clearSearch) {
+            clearSearch.addEventListener('click', function() {
                 heroSearch.value = '';
-                regionFilter.value = '';
                 filterHeroes();
-                noResults.remove();
             });
         }
-    } else {
-        const noResults = document.querySelector('.no-results-message');
-        if (noResults) noResults.remove();
-    }
-}
 
-// Event listeners
-if (heroSearch) {
-    heroSearch.addEventListener('input', filterHeroes);
-}
-
-if (regionFilter) {
-    regionFilter.addEventListener('change', filterHeroes);
-}
-
-if (clearSearch) {
-    clearSearch.addEventListener('click', function() {
-        heroSearch.value = '';
-        filterHeroes();
-    });
-}
-
-// Initialize filtering on page load
-document.addEventListener('DOMContentLoaded', function() {
-    // Add data attributes for filtering
-    heroItems.forEach(item => {
-        const cardTitle = item.querySelector('.card-title');
-        const regionSpan = item.querySelector('span.text-muted.small');
-        
-        if (cardTitle) {
-            item.setAttribute('data-name', cardTitle.textContent.toLowerCase().trim());
-        }
-        
-        if (regionSpan) {
-            item.setAttribute('data-region', regionSpan.textContent.toLowerCase().trim());
-        }
-    });
-});
+        // Initialize filtering on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add data attributes for filtering
+            heroItems.forEach(item => {
+                const cardTitle = item.querySelector('.card-title');
+                const regionSpan = item.querySelector('span.text-muted.small');
+                
+                if (cardTitle) {
+                    item.setAttribute('data-name', cardTitle.textContent.toLowerCase().trim());
+                }
+                
+                if (regionSpan) {
+                    item.setAttribute('data-region', regionSpan.textContent.toLowerCase().trim());
+                }
+            });
+        });
     </script>
 </body>
 </html>
