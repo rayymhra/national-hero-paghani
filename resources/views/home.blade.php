@@ -701,7 +701,7 @@
             
             <div class="row mb-4">
                 <div class="col-12">
-                    <div class="alert alert-info">
+                    {{-- <div class="alert alert-info">
                         <div class="d-flex align-items-center">
                             <i class="fas fa-info-circle fa-2x me-3"></i>
                             <div>
@@ -709,7 +709,7 @@
                                 <p class="mb-0">Berikut adalah pahlawan-pahlawan yang telah terdaftar dalam sistem kami. Data ini dapat diperbarui melalui menu <a href="{{ route('pahlawans.index') }}" class="alert-link">Kelola Data</a>.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             
